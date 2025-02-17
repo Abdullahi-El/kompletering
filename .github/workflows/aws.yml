@@ -32,7 +32,7 @@ jobs:
           application_name: AbdullahiElmi-env
           environment_name: KrypteringsAPI-env
           version_label: ${{ github.run_id }}
-          region: eu-north-1
+          region: us-east-1
           deployment_package: publish.zip
 
 
