@@ -1,4 +1,4 @@
-name: Build and push to aws
+name: Build and push to AWS
 
 on:
   push:
@@ -19,12 +19,16 @@ jobs:
           dotnet-version: '6.0'
 
       - name: Build project
-        run:  dotnet restore; dotnet publish -o site;
+        run: |
+          dotnet restore
+          dotnet publish -o site
 
       - name: Create zip package
-        run:  cd site; zip ../publish.zip *;
+        run: |
+          cd site
+          zip -r ../publish.zip .
 
-      - name: Deploy to aws EB
+      - name: Deploy to AWS Elastic Beanstalk
         uses: einaregilsson/beanstalk-deploy@v21
         with: 
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -34,15 +38,4 @@ jobs:
           version_label: ${{ github.run_id }}
           region: us-east-1
           deployment_package: publish.zip
-
-
-
-
-
-
-
-
-
-
-
-    
+          
